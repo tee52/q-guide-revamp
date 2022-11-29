@@ -1,0 +1,22 @@
+@font-face { 
+    font-family: 'bruno-ace-regular' format('truetype'); 
+    src: url('fonts/Bruno-Ace-Regular.ttf');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+nav .navbar-text, #start-text, button
+{
+    font-size: xx-large;
+    color: white;
+    font-family: 'Play', Candara, sans-serif;
+}
+
+body {
+    background-color: #921212 !important;
+}
+
+button {
+    background-color: #560B0B !important;
+}
+

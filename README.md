@@ -14,4 +14,16 @@ python -m flask run
 ```
 , which should launch the website on the server.
 
+You can access a demo account using the following username and password:
+- username: demo1
+- password: 1234
+
 There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources.
+
+## Challenges
+
+This is the first time that we were really taken off the training wheels of the CS50 codespace, so transferring and setting up features that CS50 had previously set up for us was a little confusing.
+
+## Where to Go From Here?
+
+I could not figure out how to upload the data for every single Harvard undergraduate course and could not manually input thousands of courses, so in the future, it would be helpful to have access already to a database containing all of the course information. As well, considering that this site is for Harvard students, realistically, it would be beneficial to add a way to confirm students' Harvard emails or student IDs.

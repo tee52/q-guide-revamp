@@ -8,9 +8,23 @@ import sqlite3
 
 # configure application
 app = Flask(__name__)
+app.run
+
+# configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 # use q-guide database
 db = sqlite3.connect("q-guide.db")
+
+@app.after_request
+def after_request(response):
+    """Ensure responses aren't cached"""
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 @app.route("/", methods=['GET', 'POST'])
 def start():

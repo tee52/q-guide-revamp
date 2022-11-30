@@ -18,7 +18,8 @@ nav .navbar-text, button
 }
 
 #start-text {
-    font-size: 100px;
+    font-size: 80px;
+    margin: 10px;
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }

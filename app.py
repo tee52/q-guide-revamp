@@ -16,7 +16,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # use q-guide database
-db = sqlite3.connect("q-guide.db")
+connection = sqlite3.connect("q-guide.db", check_same_thread=False)
+db = connection.cursor()
 
 @app.after_request
 def after_request(response):
@@ -28,10 +29,14 @@ def after_request(response):
 
 @app.route("/", methods=['GET', 'POST'])
 def start():
-    if request.method == 'POST':
-        return redirect("/login")
+    if session.get("user_id") is None:
+        if request.method == 'POST':
+            return redirect("/login")
+        else:
+            return render_template("start.html")
+    
     else:
-        return render_template("start.html")
+        return render_template("home.html")
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -51,17 +56,18 @@ def login():
             return render_template("login.html", error="must enter password")
 
         # search database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        db.execute("SELECT * FROM users WHERE username = (?)", (request.form.get("username"),))
+        rows = db.fetchall()
 
         # check if username is in database and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+        if len(rows) != 1 or not check_password_hash(rows[0][2], request.form.get("password")):
             return render_template("login.html", error="invalid username and/or password")
 
         # remember which user is logged in
-        session["user_id"] = rows[0]["id"]
+        session["user_id"] = rows[0][0]
 
         # redirect to home page (login required)
-        return redirect("/home")
+        return redirect("/")
 
     else:
         return render_template("login.html")
@@ -72,7 +78,8 @@ def register():
     """register user"""
 
     if request.method == "POST":
-        usernames = db.execute("SELECT username FROM users")
+        db.execute("SELECT username FROM users")
+        usernames = db.fetchall()
 
         # check if username was entered
         if not request.form.get("username"):
@@ -89,15 +96,20 @@ def register():
         elif request.form.get("confirmation") != request.form.get("password"):
             return render_template("register.html", error="passwords do not match")
 
-        db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", request.form.get("username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8))
+        db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", (request.form.get("username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8)))
+        connection.commit()
 
-        return redirect("/home")
+        return redirect("/")
 
     else:
         return render_template("register.html")
 
+@app.route("/logout")
+def logout():
+    """log user out"""
 
-@app.route("/home")
-@login_required
-def home():
-    return render_template("home.html")
+    # forget any user_id
+    session.clear()
+
+    # redirect user to start screen
+    return redirect("/")

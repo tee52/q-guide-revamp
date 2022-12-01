@@ -19,7 +19,6 @@ nav .navbar-text, button
 
 #start-text {
     font-size: 80px;
-    margin: 10px;
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
@@ -27,11 +26,12 @@ nav .navbar-text, button
 a, form, h3 {
     font-size: large;
     font-family: 'Fira Sans Condensed', Calibri, sans-serif;
-    color: lightslategray;
+    color: #d0d2d5;
 }
 
 body {
     background-color: #921212 !important;
+    padding: 100px 50px;
 }
 
 button {

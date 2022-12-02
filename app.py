@@ -7,7 +7,7 @@ from helpers import login_required
 import sqlite3
 
 # configure application
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.run
 
 # configure session to use filesystem (instead of signed cookies)
@@ -30,10 +30,7 @@ def after_request(response):
 @app.route("/", methods=['GET', 'POST'])
 def start():
     if session.get("user_id") is None:
-        if request.method == 'POST':
-            return redirect("/login")
-        else:
-            return render_template("start.html")
+        return render_template("start.html")
     
     else:
         return render_template("home.html")
@@ -115,15 +112,18 @@ def logout():
     return redirect("/")
 
 @app.route("/profile")
+@login_required
 def profile():
     """show user profile"""
     return render_template("profile.html")
 
 @app.route("/search")
+@login_required
 def search():
     return render_template("search.html")
 
 @app.route("/forum")
+@login_required
 def forum():
     return render_template("forum.html")
 

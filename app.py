@@ -113,3 +113,17 @@ def logout():
 
     # redirect user to start screen
     return redirect("/")
+
+@app.route("/profile")
+def profile():
+    """show user profile"""
+    return render_template("profile.html")
+
+@app.route("/search")
+def search():
+    return render_template("search.html")
+
+@app.route("/forum")
+def forum():
+    return render_template("forum.html")
+

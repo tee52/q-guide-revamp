@@ -123,8 +123,11 @@ def profile():
     db.execute("SELECT username FROM users")
     usernames = db.fetchall()
 
+    db.execute("SELECT concentration FROM users WHERE id = (?)", (session["user_id"],))
+    concentration = db.fetchall()
+
     if request.method == "POST":
-        if id == "change_user":
+        if request.form.get("action") == "change_user":
             # check if username was entered
             if not request.form.get("username"):
                 return render_template("profile.html", error="must enter new username", username=username[0][0])
@@ -138,7 +141,7 @@ def profile():
                 return render_template("profile.html", error="username is already taken", username=username[0][0])
 
             # search database for username
-            db.execute("SELECT password FROM users WHERE id = (?)", (session["user_id"],))
+            db.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
             password = db.fetchall()
 
             # check if username is in database and password is correct
@@ -148,7 +151,7 @@ def profile():
             db.execute("UPDATE users SET username = (?) WHERE id = (?)", (request.form.get("username"),), (session["user_id"],))
             connection.commit()
 
-        elif id == "change_pass":
+        elif request.form.get("action") == "change_pass":
             # check if password was entered
             if not request.form.get("current_password"):
                 return render_template("profile.html", error="must enter current password", username=username[0][0])
@@ -163,11 +166,19 @@ def profile():
 
             db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
             connection.commit()
+            
+        elif request.form.get("action") == "school_info":
+            db.execute("SELECT concentration FROM users WHERE id = (?)", (session["user_id"],))
+            concentration = db.fetchall()
+
+            if request.form.get("concentration") != concentration[0][0] and request.getform.get("concentration") != "":
+                db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+                connection.commit()
 
         return redirect("/profile")
     
     else:
-        return render_template("profile.html", username=username[0][0])
+        return render_template("profile.html", username=username[0][0], concentration=concentration[0][0])
 
 @app.route("/search")
 @login_required

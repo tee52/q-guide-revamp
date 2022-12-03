@@ -8,10 +8,12 @@
         </div>
     {% endif %}
 
+    <form action="/profile" method="post">
+
     <div class="container text-start">
         <div class="row">
             <div class="col">
-                <h4>username</h4>
+                <h5>username</h5>
                 <p>{{ username }}</p>
 
                 <!-- button trigger modal -->
@@ -23,7 +25,6 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form id="change_user" action="/profile" method="post">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">change username</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -38,17 +39,17 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                                    <button type="submit" class="btn btn-primary">save changes</button>
+                                    <button type="submit" class="btn btn-primary" name="action" value="change_user">save changes</button>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
 
                 <br>
                 <br>
+                <br>
 
-                <h4>password</h4>
+                <h5>password</h5>
                 <!-- button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                     change password
@@ -58,7 +59,6 @@
                 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form id="change_pass" action="/profile" method="post">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">change password</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -76,20 +76,85 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                                    <button type="submit" class="btn btn-primary">save changes</button>
+                                    <button type="submit" class="btn btn-primary" name="action" value="change_pass">save changes</button>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             
             </div>
-            
+
             <div class="col">
+                <h5>graduation year</h5>
+                <p>{{ grad_year }}</p>
+
+                <h5>class</h5>
+                <p>{{ class }}</p>
                 
+                <h5>intended concentration</h5>
+                <p>{{ concentration }}</p>
+                    <label for="concentrations"></label>
+                    <select id="concentrations" name="concentrations">
+                        <option value=""></option>
+                        <option value="aaas">African and African American Studies</option>
+                        <option value="anthro">Anthropology</option>
+                        <option value="apmth">Applied Mathematics</option>
+                        <option value="afvs">Art, Film, and Visual Studies</option>
+                        <option value="astron">Astrophysics</option>
+                        <option value="bme">Biomedical Engineering</option>
+                        <option value="chem">Chemistry</option>
+                        <option value="cpb">Chemical and Physical Biology</option>
+                        <option value="chemphys">Chemistry and Physics</option>
+                        <option value="classic">Classics</option>
+                        <option value="complit">Comparative Literature</option>
+                        <option value="compsci">Computer Science</option>
+                        <option value="e-psci">Earth and Planetary Sciences</option>
+                        <option value="eas">East Asian Studies</option>
+                        <option value="econ">Economics</option>
+                        <option value="ee">Electrical Engineering</option>
+                        <option value="eng-sci">Engineering Sciences</option>
+                        <option value="english">English</option>
+                        <option value="ese">Environmental Science and Engineering</option>
+                        <option value="espp">Environmental Science and Public Policy</option>
+                        <option value="folkmyth">Folklore and Mythology</option>
+                        <option value="germanic">Germanic Languages and Literatures</option>
+                        <option value="gov">Government</option>
+                        <option value="hist-lit">History and Literature</option>
+                        <option value="hist">History</option>
+                        <option value="histsci">History and Science</option>
+                        <option value="haa">History of Art and Architecture</option>
+                        <option value="hdrb">Human Developmental and Regenerative Biology</option>
+                        <option value="heb">Human Evolutionary Biology</option>
+                        <option value="ib">Integrative Biology</option>
+                        <option value="ling">Linguistics</option>
+                        <option value="math">Mathematics</option>
+                        <option value="meche">Mechanical Engineering</option>
+                        <option value="mcb">Molecular and Cellular Biology</option>
+                        <option value="music">Music</option>
+                        <option value="nelc">Near Eastern Languages and Civilizations</option>
+                        <option value="neuro">Neuroscience</option>
+                        <option value="phil">Philosophy</option>
+                        <option value="physics">Physics</option>
+                        <option value="psych">Psychology</option>
+                        <option value="religion">Religion, Comparative Study of</option>
+                        <option value="rll">Romance Languages and Literatures</option>
+                        <option value="slavic">Slavic Languages and Literatures</option>
+                        <option value="soc-std">Social Studies</option>
+                        <option value="sociol">Sociology</option>
+                        <option value="sas">South Asian Studies</option>
+                        <option value="stat">Statistics</option>
+                        <option value="tdm">Theater, Dance, and Media</option>
+                        <option value="womgen">Women, Gender, and Sexuality, Studies of</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary" name="action" value="school_info">save changes</button>
+                  
             </div>
         </div>
     </div>
+
+    </form>
     
     
 

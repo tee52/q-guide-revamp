@@ -16,6 +16,7 @@ nav .navbar-text, button
     text-decoration: none;
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
+    border:none !important;
 }
 
 #start-text {
@@ -24,7 +25,7 @@ nav .navbar-text, button
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
 
-h4 {
+h5 {
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }

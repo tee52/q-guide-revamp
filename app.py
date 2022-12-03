@@ -164,7 +164,7 @@ def profile():
             elif request.form.get("new_password") != request.form.get("new_password2"):
                 return render_template("profile.html", error="passwords do not match", username=username[0][0])
 
-            db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+            db.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
             connection.commit()
             
         elif request.form.get("action") == "school_info":
@@ -172,7 +172,7 @@ def profile():
             concentration = db.fetchall()
 
             if request.form.get("concentration") != concentration[0][0] and request.getform.get("concentration") != "":
-                db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+                db.execute("UPDATE users SET concentration = (?) WHERE id = (?)", (request.form.get("concentration"),), (session["user_id"],))
                 connection.commit()
 
         return redirect("/profile")

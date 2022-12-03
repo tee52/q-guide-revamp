@@ -90,6 +90,7 @@ def register():
         elif request.form.get("username") in usernames:
             return render_template("register.html", error="username is not unique")
 
+        # check if passwords match
         elif request.form.get("confirmation") != request.form.get("password"):
             return render_template("register.html", error="passwords do not match")
 
@@ -111,11 +112,62 @@ def logout():
     # redirect user to start screen
     return redirect("/")
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET','POST'])
 @login_required
 def profile():
     """show user profile"""
-    return render_template("profile.html")
+
+    db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
+    username = db.fetchall()
+
+    db.execute("SELECT username FROM users")
+    usernames = db.fetchall()
+
+    if request.method == "POST":
+        if id == "change_user":
+            # check if username was entered
+            if not request.form.get("username"):
+                return render_template("profile.html", error="must enter new username", username=username[0][0])
+
+            # check if password was entered
+            elif not request.form.get("password"):
+                return render_template("profile.html", error="must enter password", username=username[0][0])
+
+            # check if username is already in database
+            elif request.form.get("username") in usernames:
+                return render_template("profile.html", error="username is already taken", username=username[0][0])
+
+            # search database for username
+            db.execute("SELECT password FROM users WHERE id = (?)", (session["user_id"],))
+            password = db.fetchall()
+
+            # check if username is in database and password is correct
+            if not check_password_hash(password[0][0], request.form.get("password")):
+                return render_template("profile.html", error="invalid password", username=username[0][0])
+
+            db.execute("UPDATE users SET username = (?) WHERE id = (?)", (request.form.get("username"),), (session["user_id"],))
+            connection.commit()
+
+        elif id == "change_pass":
+            # check if password was entered
+            if not request.form.get("current_password"):
+                return render_template("profile.html", error="must enter current password", username=username[0][0])
+
+            # check if password was entered
+            elif not request.form.get("new_password") or not request.form.get("new_password2"):
+                return render_template("profile.html", error="must enter new password", username=username[0][0])
+
+            # check if passwords match
+            elif request.form.get("new_password") != request.form.get("new_password2"):
+                return render_template("profile.html", error="passwords do not match", username=username[0][0])
+
+            db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+            connection.commit()
+
+        return redirect("/profile")
+    
+    else:
+        return render_template("profile.html", username=username[0][0])
 
 @app.route("/search")
 @login_required

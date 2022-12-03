@@ -24,6 +24,16 @@ nav .navbar-text, button
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
 
+h4 {
+    color: white;
+    font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
+}
+
+p {
+    font-family: 'Fira Sans Condensed', Calibri, sans-serif;
+    color: white !important;
+}
+
 a, form, h3 {
     font-size: large;
     font-family: 'Fira Sans Condensed', Calibri, sans-serif;

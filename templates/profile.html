@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <div class="container text-start">
+        <div class="row">
+            <div class="col">
+                <h4>username</h4>
+                <p>{{ username }}</p>
+
+                <!-- button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    change username
+                </button>
+                
+                <!-- modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="change_user" action="/profile" method="post">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">change username</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto w-auto" id="username" name="username" placeholder="new username" type="text">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="confirm password" type="password">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                    <button type="submit" class="btn btn-primary">save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+
+                <h4>password</h4>
+                <!-- button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    change password
+                </button>
+                
+                <!-- modal -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form id="change_pass" action="/profile" method="post">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">change password</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="current password" type="password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="new password" type="password">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control mx-auto w-auto" id="new_password2" name="new_password2" placeholder="re-enter new password" type="password">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                    <button type="submit" class="btn btn-primary">save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+            
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+    
+    
+
+    
+
+{% endblock %}

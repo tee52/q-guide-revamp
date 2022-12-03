@@ -161,7 +161,7 @@ def profile():
             elif request.form.get("new_password") != request.form.get("new_password2"):
                 return render_template("profile.html", error="passwords do not match", username=username[0][0])
 
-            db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+            db.execute("UPDATE users SET password = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
             connection.commit()
 
         return redirect("/profile")

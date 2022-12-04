@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block main %}
-    {% if error %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ error }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    {% endif %}
+{% if error %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
 
-    <form action="/profile" method="post">
+<form action="/profile" method="post">
 
     <div class="container text-start">
         <div class="row">
@@ -20,27 +20,32 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     change username
                 </button>
-                
+
                 <!-- modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">change username</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">change username</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <input class="form-control mx-auto w-auto" id="username" name="username"
+                                        placeholder="new username" type="text">
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto w-auto" id="username" name="username" placeholder="new username" type="text">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="confirm password" type="password">
-                                    </div>
+                                <div class="mb-3">
+                                    <input class="form-control mx-auto w-auto" id="password" name="password"
+                                        placeholder="confirm password" type="password">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                                    <button type="submit" class="btn btn-primary" name="action" value="change_user">save changes</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                <button type="submit" class="btn btn-primary" name="action" value="change_user">save
+                                    changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -54,110 +59,141 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                     change password
                 </button>
-                
+
                 <!-- modal -->
-                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">change password</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">change password</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <input class="form-control mx-auto w-auto" id="current_password"
+                                        name="current_password" placeholder="current password" type="password">
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="current password" type="password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="new password" type="password">
-                                    </div>
-                                    <div class="mb-3">
-                                        <input class="form-control mx-auto w-auto" id="new_password2" name="new_password2" placeholder="re-enter new password" type="password">
-                                    </div>
+                                <div class="mb-3">
+                                    <input class="form-control mx-auto w-auto" id="new_password" name="new_password"
+                                        placeholder="new password" type="password">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
-                                    <button type="submit" class="btn btn-primary" name="action" value="change_pass">save changes</button>
+                                <div class="mb-3">
+                                    <input class="form-control mx-auto w-auto" id="new_password2" name="new_password2"
+                                        placeholder="re-enter new password" type="password">
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                                <button type="submit" class="btn btn-primary" name="action" value="change_pass">save
+                                    changes</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            
+
+                <br>
+                <br>
             </div>
 
             <div class="col">
                 <h5>graduation year</h5>
                 <p>{{ grad_year }}</p>
 
+                <select id="years" name="years">
+                    <option value=""></option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                </select>
+
+                <br>
+                <br>
+
                 <h5>class</h5>
-                <p>{{ class }}</p>
-                
+                <p>{{ curr_class }}</p>
+
+                <select id="classes" name="classes">
+                    <option value=""></option>
+                    <option value="freshman">freshman</option>
+                    <option value="sophomore">sophomore</option>
+                    <option value="junior">junior</option>
+                    <option value="senior">senior</option>
+                </select>
+
+                <br>
+                <br>
+
                 <h5>intended concentration</h5>
                 <p>{{ concentration }}</p>
-                    <label for="concentrations"></label>
-                    <select id="concentrations" name="concentrations">
-                        <option value=""></option>
-                        <option value="aaas">African and African American Studies</option>
-                        <option value="anthro">Anthropology</option>
-                        <option value="apmth">Applied Mathematics</option>
-                        <option value="afvs">Art, Film, and Visual Studies</option>
-                        <option value="astron">Astrophysics</option>
-                        <option value="bme">Biomedical Engineering</option>
-                        <option value="chem">Chemistry</option>
-                        <option value="cpb">Chemical and Physical Biology</option>
-                        <option value="chemphys">Chemistry and Physics</option>
-                        <option value="classic">Classics</option>
-                        <option value="complit">Comparative Literature</option>
-                        <option value="compsci">Computer Science</option>
-                        <option value="e-psci">Earth and Planetary Sciences</option>
-                        <option value="eas">East Asian Studies</option>
-                        <option value="econ">Economics</option>
-                        <option value="ee">Electrical Engineering</option>
-                        <option value="eng-sci">Engineering Sciences</option>
-                        <option value="english">English</option>
-                        <option value="ese">Environmental Science and Engineering</option>
-                        <option value="espp">Environmental Science and Public Policy</option>
-                        <option value="folkmyth">Folklore and Mythology</option>
-                        <option value="germanic">Germanic Languages and Literatures</option>
-                        <option value="gov">Government</option>
-                        <option value="hist-lit">History and Literature</option>
-                        <option value="hist">History</option>
-                        <option value="histsci">History and Science</option>
-                        <option value="haa">History of Art and Architecture</option>
-                        <option value="hdrb">Human Developmental and Regenerative Biology</option>
-                        <option value="heb">Human Evolutionary Biology</option>
-                        <option value="ib">Integrative Biology</option>
-                        <option value="ling">Linguistics</option>
-                        <option value="math">Mathematics</option>
-                        <option value="meche">Mechanical Engineering</option>
-                        <option value="mcb">Molecular and Cellular Biology</option>
-                        <option value="music">Music</option>
-                        <option value="nelc">Near Eastern Languages and Civilizations</option>
-                        <option value="neuro">Neuroscience</option>
-                        <option value="phil">Philosophy</option>
-                        <option value="physics">Physics</option>
-                        <option value="psych">Psychology</option>
-                        <option value="religion">Religion, Comparative Study of</option>
-                        <option value="rll">Romance Languages and Literatures</option>
-                        <option value="slavic">Slavic Languages and Literatures</option>
-                        <option value="soc-std">Social Studies</option>
-                        <option value="sociol">Sociology</option>
-                        <option value="sas">South Asian Studies</option>
-                        <option value="stat">Statistics</option>
-                        <option value="tdm">Theater, Dance, and Media</option>
-                        <option value="womgen">Women, Gender, and Sexuality, Studies of</option>
-                    </select>
-                    <br>
-                    <br>
-                    <button type="submit" class="btn btn-primary" name="action" value="school_info">save changes</button>
-                  
+
+                <select id="concentrations" name="concentrations">
+                    <option></option>
+                    <option>African and African American Studies</option>
+                    <option>Anthropology</option>
+                    <option>Applied Mathematics</option>
+                    <option>Art, Film, and Visual Studies</option>
+                    <option>Astrophysics</option>
+                    <option>Biomedical Engineering</option>
+                    <option>Chemistry</option>
+                    <option>Chemical and Physical Biology</option>
+                    <option>Chemistry and Physics</option>
+                    <option>Classics</option>
+                    <option>Comparative Literature</option>
+                    <option>Computer Science</option>
+                    <option>Earth and Planetary Sciences</option>
+                    <option>East Asian Studies</option>
+                    <option>Economics</option>
+                    <option>Electrical Engineering</option>
+                    <option>Engineering Sciences</option>
+                    <option>English</option>
+                    <option>Environmental Science and Engineering</option>
+                    <option>Environmental Science and Public Policy</option>
+                    <option>Folklore and Mythology</option>
+                    <option>Germanic Languages and Literatures</option>
+                    <option>Government</option>
+                    <option>History and Literature</option>
+                    <option>History</option>
+                    <option>History and Science</option>
+                    <option>History of Art and Architecture</option>
+                    <option>Human Developmental and Regenerative Biology</option>
+                    <option>Human Evolutionary Biology</option>
+                    <option>Integrative Biology</option>
+                    <option>Linguistics</option>
+                    <option>Mathematics</option>
+                    <option>Mechanical Engineering</option>
+                    <option>Molecular and Cellular Biology</option>
+                    <option>Music</option>
+                    <option>Near Eastern Languages and Civilizations</option>
+                    <option>Neuroscience</option>
+                    <option>Philosophy</option>
+                    <option>Physics</option>
+                    <option>Psychology</option>
+                    <option>Religion, Comparative Study of</option>
+                    <option>Romance Languages and Literatures</option>
+                    <option>Slavic Languages and Literatures</option>
+                    <option>Social Studies</option>
+                    <option>Sociology</option>
+                    <option>South Asian Studies</option>
+                    <option>Statistics</option>
+                    <option>Theater, Dance, and Media</option>
+                    <option>Women, Gender, and Sexuality, Studies of</option>
+                </select>
+
+                <br>
+                <br>
+                
+                <button type="submit" class="btn btn-primary" name="action" value="school_info">save changes</button>
+
             </div>
         </div>
     </div>
+</form>
 
-    </form>
-    
-    
 
-    
+
+
 
 {% endblock %}

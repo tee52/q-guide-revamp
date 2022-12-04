@@ -126,6 +126,12 @@ def profile():
     db.execute("SELECT username FROM users")
     usernames = db.fetchall()
 
+    db.execute("SELECT grad_year FROM users WHERE id = (?)", (session["user_id"],))
+    grad_year = db.fetchall()
+            
+    db.execute("SELECT class FROM users WHERE id = (?)", (session["user_id"],))
+    curr_class = db.fetchall()
+
     db.execute("SELECT concentration FROM users WHERE id = (?)", (session["user_id"],))
     concentration = db.fetchall()
 
@@ -133,55 +139,76 @@ def profile():
         if request.form.get("action") == "change_user":
             # check if username was entered
             if not request.form.get("username"):
-                return render_template("profile.html", error="must enter new username", username=username[0][0])
+                return render_template("profile.html", error="must enter new username", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # check if password was entered
             elif not request.form.get("password"):
-                return render_template("profile.html", error="must enter password", username=username[0][0])
+                return render_template("profile.html", error="must enter password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # check if username is already in database
             elif request.form.get("username") in usernames:
-                return render_template("profile.html", error="username is already taken", username=username[0][0])
+                return render_template("profile.html", error="username is already taken", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
-            # search database for username
+            # search database for password
             db.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
             password = db.fetchall()
 
             # check if username is in database and password is correct
             if not check_password_hash(password[0][0], request.form.get("password")):
-                return render_template("profile.html", error="invalid password", username=username[0][0])
+                return render_template("profile.html", error="invalid password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
-            db.execute("UPDATE users SET username = (?) WHERE id = (?)", (request.form.get("username"),), (session["user_id"],))
+            db.execute("UPDATE users SET username = (?) WHERE id = (?)", (request.form.get("username"), session["user_id"]))
             connection.commit()
+
+            db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
+            username = db.fetchall()
+
+            return render_template("profile.html", username=username, grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
         elif request.form.get("action") == "change_pass":
             # check if password was entered
             if not request.form.get("current_password"):
-                return render_template("profile.html", error="must enter current password", username=username[0][0])
+                return render_template("profile.html", error="must enter current password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # check if password was entered
             elif not request.form.get("new_password") or not request.form.get("new_password2"):
-                return render_template("profile.html", error="must enter new password", username=username[0][0])
+                return render_template("profile.html", error="must enter new password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # check if passwords match
             elif request.form.get("new_password") != request.form.get("new_password2"):
-                return render_template("profile.html", error="passwords do not match", username=username[0][0])
+                return render_template("profile.html", error="passwords do not match", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             db.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
             connection.commit()
+
+            return render_template("profile.html", username=username, grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
             
         elif request.form.get("action") == "school_info":
+            db.execute("SELECT grad_year FROM users WHERE id = (?)", (session["user_id"],))
+            grad_year = db.fetchall()
+            
+            db.execute("SELECT class FROM users WHERE id = (?)", (session["user_id"],))
+            curr_class = db.fetchall()
+            
             db.execute("SELECT concentration FROM users WHERE id = (?)", (session["user_id"],))
             concentration = db.fetchall()
 
-            if request.form.get("concentration") != concentration[0][0] and request.getform.get("concentration") != "":
-                db.execute("UPDATE users SET concentration = (?) WHERE id = (?)", (request.form.get("concentration"),), (session["user_id"],))
+            if request.form.get("years") != grad_year[0][0] and request.form.get("years") != "":
+                db.execute("UPDATE users SET grad_year = (?) WHERE id = (?)", (request.form.get("years"), session["user_id"]))
                 connection.commit()
 
-        return render_template("profile.html", username=username[0][0], concentration=concentration[0][0])
+            if request.form.get("classes") != curr_class[0][0] and request.form.get("classes") != "":
+                db.execute("UPDATE users SET class = (?) WHERE id = (?)", (request.form.get("classes"), session["user_id"]))
+                connection.commit()    
+
+            if request.form.get("concentrations") != concentration[0][0] and request.form.get("concentrations") != "":
+                db.execute("UPDATE users SET concentration = (?) WHERE id = (?)", (request.form.get("concentrations"), session["user_id"]))
+                connection.commit()
+
+        return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
     
     else:
-        return render_template("profile.html", username=username[0][0], concentration=concentration[0][0])
+        return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
 @app.route("/search", methods=['GET', 'POST'])
 @login_required

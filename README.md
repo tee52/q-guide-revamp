@@ -8,7 +8,7 @@ I'm a freshman at Harvard College, and when registering for courses, almost all 
 
 ## The Project Itself
 
-For my implementation of the CS50 final project, I used primarily Flask with HTML, CSS, and Python. I utilized some components from the Bootstrap library, as well as reused some of the basic functionality from the Finance pset (login, register, basic setup). To run the project, you would need to download the files, cd into the q-guide-revamp folder, and run 
+For my implementation of the CS50 final project, I used primarily Flask with HTML, CSS, and Python. I utilized some components and classes from the Bootstrap library (modals, cards, navbar, table, etc.), as well as reused some of the basic functionality from the Finance pset (login, register, basic setup). To run the project, you would need to download the files, cd into the q-guide-revamp folder, and run 
 ```
 python -m flask run
 ```
@@ -20,10 +20,21 @@ You can access a demo account using the following username and password:
 
 There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources.
 
-## Challenges
+## Challenges and Limitations
 
-This is the first time that we were really taken off the training wheels of the CS50 codespace, so transferring and setting up features that CS50 had previously set up for us was a little confusing.
+This is the first time that we were really taken off the training wheels of the CS50 codespace, so transferring and setting up features that CS50 had previously set up for us was a little confusing. I ran into challenges with using Flask and SQLite in my local VS Code. As well, (as expected) bugs were frequent in my code. Limited by time constraints, I ultimately could not implement all of the features that I had originally planned to, but I did do my best to offer at least a prototype of what a new Q Guide could look like.
 
 ## Where to Go From Here?
 
-I could not figure out how to upload the data for every single Harvard undergraduate course and could not manually input thousands of courses, so in the future, it would be helpful to have access already to a database containing all of the course information. As well, considering that this site is for Harvard students, realistically, it would be beneficial to add a way to confirm students' Harvard emails or student IDs.
+To my knowledge, the data on every Harvard undergraduate course is not publicly available, and I obviously could not manually input thousands of courses, so in the future, it would be helpful to have access already to a database containing all of the course information. Given more time, I would add more courses to the database.
+
+As well, I would add the following features:
+- verify Harvard emails/student IDs
+- link to my.harvard entry and/or full q-report for courses
+- favorite courses
+- more personalized recommendations
+- more detailed course cards
+- delete and edit posts
+- make posting more specific and limited (implementing tags, topics, etc.)
+- give each post its own page
+- comment on posts

@@ -35,7 +35,7 @@ def start():
     else:
         db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
         username = db.fetchall()
-        
+
         return render_template("home.html", username=username[0][0])
 
 
@@ -90,7 +90,7 @@ def register():
             return render_template("register.html", error="must enter password")
 
         # check if username is already in database
-        elif request.form.get("username") in usernames:
+        elif (any(request.form.get("username") in u for u in usernames)):
             return render_template("register.html", error="username is not unique")
 
         # check if passwords match
@@ -100,7 +100,7 @@ def register():
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", (request.form.get("username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8)))
         connection.commit()
 
-        return redirect("/")
+        return redirect("/login")
 
     else:
         return render_template("register.html")
@@ -146,7 +146,7 @@ def profile():
                 return render_template("profile.html", error="must enter password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # check if username is already in database
-            elif request.form.get("username") in usernames:
+            elif (any(request.form.get("username") in u for u in usernames)):
                 return render_template("profile.html", error="username is already taken", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
             # search database for password

@@ -20,13 +20,15 @@
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <div class="mb-3">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="title, e.g. CS50 Review">
-                </div>
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mb-3 d-flex justify-content-end">post</button>            
+                <form method="post" action="/forum">
+                    <div class="mb-3">
+                        <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="title, e.g. CS50 Review">
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="post" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-3 d-flex justify-content-end">post</button>            
+                </form>
             </div>
           </div>
         </div>
@@ -43,7 +45,14 @@
             </tr>
         </thead>
         <tbody class="border-top-color">
-            
+            {% for post in posts  %}
+                <tr>
+                    <td>{{ post[0] }}</td>
+                    <td>{{ post[1] }}</td>
+                    <td>{{ post[2] }}</td>
+                    <td>{{ post[3] }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}

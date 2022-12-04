@@ -25,7 +25,7 @@ nav .navbar-text, button
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
 
-h5, h1 {
+h5, h1, thead {
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
@@ -48,7 +48,7 @@ body {
     padding: 100px 50px;
 }
 
-button, .card-header {
+button, .card-header, thead {
     background-color: #560B0B !important;
 }
 

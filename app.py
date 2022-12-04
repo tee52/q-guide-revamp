@@ -231,5 +231,30 @@ def search():
 @app.route("/forum", methods=['GET', 'POST'])
 @login_required
 def forum():
-    return render_template("forum.html")
+    db.execute("SELECT username, title, post, timestamp FROM posts ORDER BY timestamp DESC")
+    posts = db.fetchall()
+
+    if request.method == "POST":
+        # check if title was entered
+        if not request.form.get("title"):
+            return render_template("forum.html", error="must enter title")
+
+        # check if post was entered
+        elif not request.form.get("post"):
+            return render_template("forum.html", error="must enter content")
+
+        db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
+        username = db.fetchall()
+
+        db.execute("INSERT INTO posts (user_id, username, title, post) VALUES (?,?,?,?)",
+        (session["user_id"], username[0][0], request.form.get("title"), request.form.get("post")))
+        connection.commit()
+
+        db.execute("SELECT username, title, post, timestamp FROM posts ORDER BY timestamp DESC")
+        posts = db.fetchall()
+
+        return render_template("forum.html", posts=posts)
+
+    else:
+        return render_template("forum.html", posts=posts)
 

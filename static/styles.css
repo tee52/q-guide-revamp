@@ -14,7 +14,7 @@ nav .navbar-text, button
 {
     font-size: xx-large;
     text-decoration: none;
-    color: white;
+    color: white !important;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
     border:none !important;
 }
@@ -25,14 +25,15 @@ nav .navbar-text, button
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
 
-h5 {
+h5, h1 {
     color: white;
     font-family: 'bruno_aceregular', Lucida Console, Bahnschrift, Candara, sans-serif !important;
 }
 
-p {
+p, h6 {
     font-family: 'Fira Sans Condensed', Calibri, sans-serif;
-    color: white !important;
+    color: white;
+    line-height: 0.7;
 }
 
 a, form, h3 {
@@ -47,8 +48,12 @@ body {
     padding: 100px 50px;
 }
 
-button {
+button, .card-header {
     background-color: #560B0B !important;
+}
+
+.card-header, .card-body {
+    padding: 5px;
 }
 
 .navbar {
@@ -59,7 +64,7 @@ button {
     color: white !important;  
 }
 
-.nav > li > .dropdown-menu > li > a {
+.card-subtitle, .card-text, .nav > li > .dropdown-menu > li > a {
     color: #560B0B !important;  
 }
 

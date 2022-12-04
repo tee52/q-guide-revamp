@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <h5>search the q</h5>
+    <br>
+    <br>
+    <form method="post" action="/search">
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <select name="criteria" class="form-select" aria-label="Default select example">
+                    <option value="" selected></option>
+                    <option value="name">name</option>
+                    <option value="abbr">code</option>
+                    <option value="term">term</option>
+                    <option value="year">year</option>
+                    <option value="instructor">instructor</option>
+                    <option value="department">department</option>
+                    <option value="subject">subject</option>
+                </select>
+            </span>
+            <input type="text" class="form-control" placeholder="search query" name="search">  
+            <button type="submit" class="btn btn-outline-secondary">go!</button>
+        </div>
+    </form>
+
+    <br>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+        {% for course in courses %}
+            <div class="col">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h6>{{ course[2] }}</h6>
+                        <h5 class="card-title">{{ course[1] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-text"><b>term:</b> {{ course[3] }} {{ course[4] }}</h6>
+                        <h6 class="card-text"><b>instructor:</b> {{ course[5] }}</h6>
+                        <h6 class="card-text"><b>department:</b> {{ course[6] }}</h6>
+                        <h6 class="card-text"><b>subject:</b> {{ course[7] }}</h6>
+                        <br>
+                        <h5 class="card-subtitle">course q scores</h5>
+                        <p></p>
+                        <p class="card-text"><b>response ratio:</b> {{ course[9] * 100 }}%</p>
+                        <p class="card-text"><b>overall score:</b> {{ course[10] }} / 5</p>
+                        <p class="card-text"><b>materials:</b> {{ course[11] }} / 5</p>
+                        <p class="card-text"><b>assignments:</b> {{ course[12] }} / 5</p>
+                        <p class="card-text"><b>feedback:</b> {{ course[13] }} / 5</p>
+                        <p class="card-text"><b>section:</b> {{ course[14] }} / 5</p>
+                    </div>
+                </div>
+                <br>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

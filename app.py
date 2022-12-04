@@ -29,11 +29,14 @@ def after_request(response):
 
 @app.route("/", methods=['GET', 'POST'])
 def start():
+    db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
+    username = db.fetchall()
+
     if session.get("user_id") is None:
         return render_template("start.html")
     
     else:
-        return render_template("home.html")
+        return render_template("home.html", username=username[0][0])
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -175,17 +178,57 @@ def profile():
                 db.execute("UPDATE users SET concentration = (?) WHERE id = (?)", (request.form.get("concentration"),), (session["user_id"],))
                 connection.commit()
 
-        return redirect("/profile")
+        return render_template("profile.html", username=username[0][0], concentration=concentration[0][0])
     
     else:
         return render_template("profile.html", username=username[0][0], concentration=concentration[0][0])
 
-@app.route("/search")
+@app.route("/search", methods=['GET', 'POST'])
 @login_required
 def search():
-    return render_template("search.html")
+    db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id")
+    courses = db.fetchall()
 
-@app.route("/forum")
+    if request.method == "POST":
+        if request.form.get("criteria") == "":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE (name LIKE '%' || (?) || '%' OR abbr LIKE '%' || (?) || '%' OR term LIKE '%' || (?) || '%' OR year LIKE '%' || (?) || '%' OR instructor LIKE '%' || (?) || '%' OR department LIKE '%' || (?) || '%' OR subject LIKE '%' || (?) || '%')", 
+            (request.form.get("search"),request.form.get("search"),request.form.get("search"),request.form.get("search"),request.form.get("search"),request.form.get("search"),request.form.get("search")))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "name":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE name LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "abbr":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE abbr LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "term":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE term LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "year":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE year LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "instructor":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE instructor LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "department":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE department LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        elif request.form.get("criteria") == "subject":
+            db.execute("SELECT * FROM courses INNER JOIN scores ON scores.course_id = courses.id WHERE subject LIKE '%' || ? || '%'", (request.form.get("search"),))
+            courses = db.fetchall()
+
+        return render_template("search.html", courses=courses)
+
+    else:
+        return render_template("search.html", courses=courses)
+
+@app.route("/forum", methods=['GET', 'POST'])
 @login_required
 def forum():
     return render_template("forum.html")

@@ -18,6 +18,8 @@ You can access a demo account using the following username and password:
 - username: demo1
 - password: 1234
 
+Feel free to also make your own account! For the sake of anonymity, please do not use your real name or enter any sensitive information/passwords.
+
 There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources.
 
 ## Challenges and Limitations

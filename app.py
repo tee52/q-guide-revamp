@@ -29,13 +29,13 @@ def after_request(response):
 
 @app.route("/", methods=['GET', 'POST'])
 def start():
-    db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
-    username = db.fetchall()
-
     if session.get("user_id") is None:
         return render_template("start.html")
     
     else:
+        db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
+        username = db.fetchall()
+        
         return render_template("home.html", username=username[0][0])
 
 
@@ -153,7 +153,7 @@ def profile():
             db.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
             password = db.fetchall()
 
-            # check if username is in database and password is correct
+            # check if password is correct
             if not check_password_hash(password[0][0], request.form.get("password")):
                 return render_template("profile.html", error="invalid password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
@@ -163,7 +163,7 @@ def profile():
             db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
             username = db.fetchall()
 
-            return render_template("profile.html", username=username, grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
+            return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
         elif request.form.get("action") == "change_pass":
             # check if password was entered
@@ -178,10 +178,18 @@ def profile():
             elif request.form.get("new_password") != request.form.get("new_password2"):
                 return render_template("profile.html", error="passwords do not match", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
 
-            db.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8),), (session["user_id"],))
+            # search database for current password
+            db.execute("SELECT hash FROM users WHERE id = (?)", (session["user_id"],))
+            password = db.fetchall()
+
+            # check if current password is correct
+            if not check_password_hash(password[0][0], request.form.get("current_password")):
+                return render_template("profile.html", error="invalid password", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
+
+            db.execute("UPDATE users SET hash = (?) WHERE id = (?)", (generate_password_hash(request.form.get("new_password"), method='pbkdf2:sha256', salt_length=8), session["user_id"]))
             connection.commit()
 
-            return render_template("profile.html", username=username, grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
+            return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
             
         elif request.form.get("action") == "school_info":
             db.execute("SELECT grad_year FROM users WHERE id = (?)", (session["user_id"],))
@@ -205,7 +213,7 @@ def profile():
                 db.execute("UPDATE users SET concentration = (?) WHERE id = (?)", (request.form.get("concentrations"), session["user_id"]))
                 connection.commit()
 
-        return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])
+        return redirect("/profile")
     
     else:
         return render_template("profile.html", username=username[0][0], grad_year=grad_year[0][0], curr_class=curr_class[0][0], concentration=concentration[0][0])

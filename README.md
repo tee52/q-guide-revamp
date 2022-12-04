@@ -8,11 +8,18 @@ I'm a freshman at Harvard College, and when registering for courses, almost all 
 
 ## The Project Itself
 
-For my implementation of the CS50 final project, I used primarily Flask with HTML, CSS, and Python. I utilized some components and classes from the Bootstrap library (modals, cards, navbar, table, etc.), as well as reused some of the basic functionality from the Finance pset (login, register, basic setup). To run the project, you would need to download the files, cd into the q-guide-revamp folder, and run 
+For my implementation of the CS50 final project, I used primarily Flask with HTML, CSS, and Python. I utilized some components and classes from the Bootstrap version 5.2 library (modals, cards, navbar, table, etc.), as well as reused some of the basic functionality from the Finance pset (login, register, basic setup). Also, I used SQLite for creating and managing the database.
+
+You need to have Python and Flask installed on your computer. You can install Flask using pip, which is downloaded along with Python, using this command:
+```
+pip3 install flask
+```
+
+Once you've done that, you can clone my repository onto your computer or download the files from Github, cd into the q-guide-revamp folder, and run 
 ```
 python -m flask run
 ```
-, which should launch the website on the server.
+, which should launch the website on the server. 
 
 You can access a demo account using the following username and password:
 - username: demo1
@@ -40,3 +47,4 @@ As well, I would add the following features:
 - make posting more specific and limited (implementing tags, topics, etc.)
 - give each post its own page
 - comment on posts
+- filter search results by q scores

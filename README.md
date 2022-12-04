@@ -27,7 +27,7 @@ You can access a demo account using the following username and password:
 
 Feel free to also make your own account! For the sake of anonymity, please do not use your real name or enter any sensitive information/passwords.
 
-There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources.
+There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources. You can also refer to the DESIGN.md document, which has more information about the design of the project.
 
 ## Challenges and Limitations
 

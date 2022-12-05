@@ -41,7 +41,7 @@ As well, I would add the following features:
 - verify Harvard emails/student IDs
 - link to my.harvard entry and/or full q-report for courses
 - favorite courses
-- more personalized recommendations
+- personalized recommendations (not just completely randomized)
 - more detailed course cards
 - delete and edit posts
 - make posting more specific and limited (implementing tags, topics, etc.)

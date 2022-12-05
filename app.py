@@ -36,7 +36,10 @@ def start():
         db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
         username = db.fetchall()
 
-        return render_template("home.html", username=username[0][0])
+        db.execute("SELECT DISTINCT * FROM courses INNER JOIN scores ON scores.course_id = courses.id ORDER BY RANDOM() LIMIT 3")
+        course_recs = db.fetchall()
+
+        return render_template("home.html", username=username[0][0], course_recs=course_recs)
 
 
 @app.route("/login", methods=['GET', 'POST'])

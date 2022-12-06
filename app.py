@@ -275,11 +275,11 @@ def forum():
     if request.method == "POST":
         # check if title was entered
         if not request.form.get("title"):
-            return render_template("forum.html", error="must enter title")
+            return render_template("forum.html", error="must enter title", posts=posts)
 
         # check if post was entered
         elif not request.form.get("post"):
-            return render_template("forum.html", error="must enter content")
+            return render_template("forum.html", error="must enter content", posts=posts)
 
         db.execute("SELECT username FROM users WHERE id = (?)", (session["user_id"],))
         username = db.fetchall()

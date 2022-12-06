@@ -17,6 +17,7 @@ In terms of functionality, I wanted to address some of those issues I found in t
 - search: The search page enables you to search courses by name, course code (abbreviation), term (spring or fall), year, instructor, department, subject, or all criteria. You can choose which criteria to search by using the dropdown on the left of the search bar. The results are displayed as cards, which once again are a modified Bootstrap component.
 - forum: The forum page allows you to make a post to and view the "forum," which shows posts made by all users displayed as a table. Each row of the table shows the username of the user who made the post, the post title, the post content, and the timestamp of when the post was submitted, organized with the newest posts first. The "make a post" element can also be collapsed to make more room for the table.
 - profile: The profile button reveals a dropdown when clicked that displays two links - profile and logout. The profile page shows the profile information for your account. There, you can change your username and/or password, displayed with a button-triggered modal, as well as your graduation year, current class (freshman, sophomore, etc.), and intended concentration. Options are presented as select dropdowns. Obviously, the logout link logs you out, and you are redirected to the start page.
+I used SQLite to make the database containing the information for the courses, scores, users, and posts, and Flask with Python/HTML/CSS for the actual webpage.
 
 ## Aesthetics and User Interface
 

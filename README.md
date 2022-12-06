@@ -31,6 +31,8 @@ Feel free to also make your own account! For the sake of anonymity, please do no
 
 There are comments within the code itself explaining what my code does and the purpose of each function, as well as sources. You can also refer to the DESIGN.md document, which has more information about the design of the project.
 
+Also, you can view my video demo here: [https://youtu.be/H7h5_3mh5iQ](https://youtu.be/H7h5_3mh5iQ)
+
 ## Challenges and Limitations
 
 This is the first time that we were really taken off the training wheels of the CS50 codespace, so transferring and setting up features that CS50 had previously set up for us was a little confusing. I ran into challenges with using Flask and SQLite in my local VS Code. As well, (as expected) bugs were frequent in my code. Limited by time constraints, I ultimately could not implement all of the features that I had originally planned to, but I did do my best to offer at least a prototype of what a new Q Guide could look like.

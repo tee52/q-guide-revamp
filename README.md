@@ -10,7 +10,9 @@ I'm a freshman at Harvard College, and when registering for courses, almost all 
 
 For my implementation of the CS50 final project, I used primarily Flask with HTML, CSS, and Python. I utilized some components and classes from the Bootstrap version 5.2 library (modals, cards, navbar, table, etc.), as well as reused some of the basic functionality from the Finance pset (login, register, basic setup). Also, I used SQLite for creating and managing the database.
 
-You need to have Python and Flask installed on your computer. You can install Flask using pip, which is downloaded along with Python, using this command:
+You can access the site at this link: [https://q-guide-revamp-dwc7.onrender.com/](https://q-guide-revamp-dwc7.onrender.com/)
+
+Alternatively, you can run the website locally. In order to run the project, you need to have Python and Flask installed on your computer. You can install Flask using pip, which is downloaded along with Python, using this command:
 ```
 pip3 install flask
 ```
